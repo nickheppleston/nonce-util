@@ -3,6 +3,8 @@ NonceUtil-C#
 
 A tiny C# NONCE generator with variable time-outs and individual salts, no database required. Inspired by https://github.com/timostamm/NonceUtil-PHP
 
+See https://en.wikipedia.org/wiki/Cryptographic_nonce for more information on the use-case for a NONCE.
+
 
 ## Usage
 
@@ -12,7 +14,7 @@ Generate a NONCE with one minute lifetime:
 
 Generate a NONCE with the default lifetime (180 seconds / 3 minutes):
 
-    var nonce = NonceUtil.GenerateNonce("myNonceSecret", 60);
+    var nonce = NonceUtil.GenerateNonce("myNonceSecret");
 
 
 Validate the NONCE:
@@ -22,7 +24,7 @@ Validate the NONCE:
 
 You have to define a secret on the server side and pass it to the `GenerateNonce()` and `CheckNonce()` methods as the first argument. The secret string must be at least 10 characters long. 
 
-The seconds argument to `GenerateNonce()` defines the lifetime of the NONCE in seconds. There are no upper restrictions on the lifetime, however if specified, the lifetime must be greater than zero. 
+The second (optional) argument to `GenerateNonce()` defines the lifetime of the NONCE in seconds. There are no upper restrictions on the lifetime, however if specified, the lifetime must be greater than zero. 
 
 
 
@@ -39,4 +41,4 @@ In order to validate the NONCE, we recalculate the hash and compare it to the ha
 ## Examples
 
 
-See NonceUtil.Tests
+See *NonceUtil.Tests*
