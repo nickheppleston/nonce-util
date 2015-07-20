@@ -7,6 +7,7 @@ namespace NonceUtil
     public static class NonceUtil
     {
         private const string SALT_CHARS = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        private const int SALT_LENGTH = 15;
 
         private static Random rand = new Random();
 
@@ -25,7 +26,7 @@ namespace NonceUtil
             if (nonceTimeoutSeconds <= 0)
                 throw new ArgumentException("The Nonce Timeout Seconds parameter must be greater than zero");
 
-            var salt = GenerateSalt(15);
+            var salt = GenerateSalt();
             var timeoutSeconds = GetSecondsSinceEpoch(nonceTimeoutSeconds);
             var hash = ComputeHash(Encoding.UTF8.GetBytes(salt), Encoding.UTF8.GetBytes(secret), Encoding.UTF8.GetBytes(timeoutSeconds.ToString()));
 
@@ -63,14 +64,14 @@ namespace NonceUtil
             return (true);
         }
 
-        internal static string GenerateSalt(int saltLength)
+        internal static string GenerateSalt()
         {
             var salt = new StringBuilder();
             
             var chars = SALT_CHARS.ToCharArray();
 		    var ll = chars.Length - 1;
 
-            while (salt.Length < saltLength)
+            while (salt.Length < SALT_LENGTH)
                 salt.Append(chars[rand.Next(0, ll)]);
 
             return (salt.ToString());

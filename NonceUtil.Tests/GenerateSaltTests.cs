@@ -11,29 +11,27 @@ namespace NonceUtil.Tests
         [TestMethod]
         public void GenerateSalt_Single()
         {
-            // Setup
-            var saltLength = 15;
+            // Setup - None
 
             // Execution
-            var salt = NonceUtil.GenerateSalt(saltLength);
+            var salt = NonceUtil.GenerateSalt();
 
             // Assertion
             Assert.IsFalse(String.IsNullOrEmpty(salt));
-            Assert.AreEqual(saltLength, salt.Length);
+            Assert.AreEqual(15, salt.Length); // Salt length is defined as a const = 15
         }
 
         [TestMethod]
         public void GenerateSalt_Multiple()
         {
             // Setup
-            var saltLength = 15;
             var saltCount = 100;
             var saltList = new List<string>();
 
             // Execution
             for (int i = 0; i < saltCount; i++)
             {
-                var salt = NonceUtil.GenerateSalt(saltLength);
+                var salt = NonceUtil.GenerateSalt();
 
                 if (!saltList.Contains(salt))
                     saltList.Add(salt);
